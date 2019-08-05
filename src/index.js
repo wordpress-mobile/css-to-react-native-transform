@@ -68,6 +68,18 @@ const transformDecls = (styles, declarations, result) => {
   }
 };
 
+const transformRaw = stylesheet => {
+  return stylesheet.rules.map(rule => {
+    const { selectors, declarations } = rule;
+    return {
+      selectors,
+      declarations: transformCSS(
+        declarations.map(({ property, value }) => [property, value]),
+      ),
+    };
+  });
+};
+
 const transform = (css, options) => {
   const { stylesheet } = parseCSS(css);
   const rules = sortRules(stylesheet.rules);
@@ -162,6 +174,10 @@ const transform = (css, options) => {
         }
       }
     }
+  }
+
+  if (options != null && options.includeRawTransform === true) {
+    result.__rawTransform = transformRaw(stylesheet);
   }
 
   if (result.__exportProps) {

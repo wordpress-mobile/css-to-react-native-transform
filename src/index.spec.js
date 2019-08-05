@@ -3445,3 +3445,33 @@ describe("ICSS :export pseudo-selector", () => {
     ).toThrow();
   });
 });
+
+describe("raw transform", () => {
+  it("includes a raw transform", () => {
+    expect(
+      transform(
+        `
+        .container,
+        .container .child {
+          background-color: #f00;
+        }
+        `,
+        {
+          includeRawTransform: true,
+        },
+      ),
+    ).toEqual({
+      container: {
+        backgroundColor: "#f00",
+      },
+      __rawTransform: [
+        {
+          selectors: [".container", ".container .child"],
+          declarations: {
+            backgroundColor: "#f00",
+          },
+        },
+      ],
+    });
+  });
+});
