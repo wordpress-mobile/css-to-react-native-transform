@@ -3464,7 +3464,7 @@ describe("raw transform", () => {
       container: {
         backgroundColor: "#f00",
       },
-      __rawTransform: [
+      __rawStyles: [
         {
           selectors: [".container", ".container .child"],
           declarations: {

@@ -177,7 +177,7 @@ const transform = (css, options) => {
   }
 
   if (options != null && options.includeRawTransform === true) {
-    result.__rawTransform = transformRaw(stylesheet);
+    result.__rawStyles = transformRaw(stylesheet);
   }
 
   if (result.__exportProps) {
