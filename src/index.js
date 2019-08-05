@@ -69,15 +69,17 @@ const transformDecls = (styles, declarations, result) => {
 };
 
 const transformRaw = stylesheet => {
-  return stylesheet.rules.map(rule => {
-    const { selectors, declarations } = rule;
-    return {
-      selectors,
-      declarations: transformCSS(
-        declarations.map(({ property, value }) => [property, value]),
-      ),
-    };
-  });
+  return stylesheet.rules
+    .filter(({ type }) => type === "rule")
+    .map(rule => {
+      const { selectors, declarations } = rule;
+      return {
+        selectors,
+        declarations: transformCSS(
+          declarations.map(({ property, value }) => [property, value]),
+        ),
+      };
+    });
 };
 
 const transform = (css, options) => {

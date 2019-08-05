@@ -3474,4 +3474,14 @@ describe("raw transform", () => {
       ],
     });
   });
+
+  it("doesn't crash when parsing a comment", () => {
+    expect(
+      transform(`/* A comment */`, {
+        includeRawTransform: true,
+      }),
+    ).toEqual({
+      __rawStyles: [],
+    });
+  });
 });
